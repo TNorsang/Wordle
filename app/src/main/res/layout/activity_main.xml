@@ -36,35 +36,35 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="48dp"
         android:text="Guess"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="374dp"
-        android:layout_height="221dp"
-        android:orientation="vertical"
+    <GridLayout
+        android:id="@+id/GridLayout"
+        android:layout_width="416dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent">
 
         <include layout="@layout/keyboard_layout" />
 
-    </LinearLayout>
+    </GridLayout>
 
     <TextView
-        android:id="@+id/displayLetterTextView"
+        android:id="@+id/firstWordDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="20dp"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/GridLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

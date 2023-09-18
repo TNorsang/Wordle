@@ -10,22 +10,36 @@ import android.widget.TextView
 import com.example.wordle.FourLetterWordLists
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var displayLetterTextView: TextView
+    private lateinit var firstWordDisplay: TextView
+    private val clickedLetters = StringBuilder()
+    private val maxLetters = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        displayLetterTextView = findViewById(R.id.displayLetterTextView)
+        firstWordDisplay = findViewById(R.id.firstWordDisplay)
+
     }
-    fun onKeyClick(view: View){
+    fun onKeyClick(view: View) : StringBuilder {
         if (view is Button) {
+
             val letterClicked = view.text.toString()
-            displayLetterTextView.text = letterClicked
+
+            if(clickedLetters.length < maxLetters){
+                clickedLetters.append(letterClicked)
+                firstWordDisplay.text = clickedLetters.toString()
+
+                val answer = checkGuess(clickedLetters)
+                Log.d("Main Activity","Answer:$answer")
+
+            }
         }
+
+        return clickedLetters
     }
 
-    fun checkGuess(guess: String) : String {
+    fun checkGuess(guess: StringBuilder) : String {
         val fourLetterWordsList = FourLetterWordLists
         val wordToGuess = fourLetterWordsList.getRandomFourLetterWord()
 
@@ -44,4 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
+
+
 }
