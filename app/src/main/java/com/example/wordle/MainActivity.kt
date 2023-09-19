@@ -10,20 +10,27 @@ import android.text.SpannableStringBuilder
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.graphics.Color
-
+import android.widget.Toast
 
 import com.example.wordle.FourLetterWordLists
+
 class MainActivity : AppCompatActivity() {
+    enum class GameState {
+        RUNNING, WIN, LOSE
+    }
+
     private lateinit var firstWordDisplay: TextView
     private lateinit var secondWordDisplay: TextView
     private lateinit var thirdWordDisplay: TextView
 
-    private val fourLetterWordsList = FourLetterWordLists
-    private val wordToGuess = fourLetterWordsList.getRandomFourLetterWord()
+    private var fourLetterWordsList = FourLetterWordLists
+    private var wordToGuess = fourLetterWordsList.getRandomFourLetterWord()
 
     private val maxLetters = 4
     private var clickedLetters = StringBuilder()
     private var remainingChances = 3 // Set the initial number of chances
+
+    private var gameState = GameState.RUNNING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val guessButton = findViewById<Button>(R.id.guessButton)
 
         guessButton.setOnClickListener{
-            if (remainingChances > 0) {
+            if (remainingChances >= 0) {
                 Log.d("MainActivity", "Answer: $wordToGuess")
                 var answer = checkGuess(clickedLetters)
                 Log.d("MainActivity", "Answer: $answer")
@@ -44,12 +51,24 @@ class MainActivity : AppCompatActivity() {
                 clickedLetters.setLength(0)
                 Log.d("MainActivity", "Clicked Letters Should be empty: $clickedLetters")
             }
-            if (remainingChances == 0) {
-                // Disable the button when chances are used up
-                guessButton.isEnabled = false
-            }
-
         }
+    }
+
+    private fun restartGame() {
+        // Reset game-related variables
+        gameState = GameState.RUNNING
+        remainingChances = 3 // Set the initial number of chances
+        clickedLetters.clear()
+        wordToGuess = fourLetterWordsList.getRandomFourLetterWord()
+
+        // Clear TextViews
+        firstWordDisplay.text = ""
+        secondWordDisplay.text = ""
+        thirdWordDisplay.text = ""
+
+        // Enable the guess button
+        val guessButton = findViewById<Button>(R.id.guessButton)
+        guessButton.isEnabled = true
     }
 
     fun onKeyClick(view: View) : StringBuilder {
@@ -66,13 +85,11 @@ class MainActivity : AppCompatActivity() {
                 } else if (remainingChances == 1){
                     thirdWordDisplay.text = clickedLetters.toString()
                 }
-
             }
         }
         println(clickedLetters)
         return clickedLetters
     }
-
 
     fun checkGuess(guess: StringBuilder): CharSequence {
         val builder = SpannableStringBuilder()
@@ -102,21 +119,35 @@ class MainActivity : AppCompatActivity() {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-
             builder.append(spannable)
         }
 
-        if(remainingChances == 3){
+        if (remainingChances == 0) {
+            gameState = GameState.LOSE
+        } else if (builder.toString() == wordToGuess) {
+            gameState = GameState.WIN
+        }
+
+        if (remainingChances == 3) {
             firstWordDisplay.text = builder
-        }else if(remainingChances == 2){
+        } else if (remainingChances == 2) {
             secondWordDisplay.text = builder
-        } else if(remainingChances == 1) {
+        } else if (remainingChances == 1) {
             thirdWordDisplay.text = builder
+        }
+
+        if (gameState == GameState.WIN) {
+            // Display a win message using Toast
+            Toast.makeText(this, "Congratulations! You guessed the word correctly.", Toast.LENGTH_LONG).show()
+            restartGame()
+        } else if (gameState == GameState.LOSE) {
+            // Display a lose message using Toast
+            Log.d("Main Activity","Inside Game State Lose")
+            Toast.makeText(this, "Sorry, you ran out of chances. The word was $wordToGuess", Toast.LENGTH_LONG).show()
+            restartGame()
         }
 
         return builder
     }
-
-
 
 }
