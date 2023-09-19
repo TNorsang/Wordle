@@ -36,6 +36,8 @@ Here's a walkthrough of implemented user stories:
 
 GIF created with Giphy Capture
 
+![WordleGif](https://github.com/TNorsang/Wordle/assets/33474625/d63a28c2-ed9b-42b2-ad9f-7ebabb8ecabf)
+
 ## Notes
 
 ## License
