@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         val guessButton = findViewById<Button>(R.id.guessButton)
 
+
         guessButton.setOnClickListener{
-            if (remainingChances >= 0) {
+            if (remainingChances > 0) {
                 Log.d("MainActivity", "Answer: $wordToGuess")
                 var answer = checkGuess(clickedLetters)
                 Log.d("MainActivity", "Answer: $answer")
-                remainingChances-- // Decrease the remaining chances
                 clickedLetters.setLength(0)
                 Log.d("MainActivity", "Clicked Letters Should be empty: $clickedLetters")
             }
@@ -122,19 +122,23 @@ class MainActivity : AppCompatActivity() {
             builder.append(spannable)
         }
 
-        if (remainingChances == 0) {
-            gameState = GameState.LOSE
-        } else if (builder.toString() == wordToGuess) {
-            gameState = GameState.WIN
-        }
-
         if (remainingChances == 3) {
             firstWordDisplay.text = builder
+            remainingChances--
         } else if (remainingChances == 2) {
             secondWordDisplay.text = builder
+            remainingChances--
         } else if (remainingChances == 1) {
             thirdWordDisplay.text = builder
+            remainingChances--
         }
+
+        if(builder.toString() == wordToGuess){
+            gameState = GameState.WIN
+        } else if (remainingChances == 0){
+            gameState = GameState.LOSE
+        }
+
 
         if (gameState == GameState.WIN) {
             // Display a win message using Toast
