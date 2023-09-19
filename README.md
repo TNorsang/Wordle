@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ g] User can toggle betweeen different word lists
+- [ ] User can toggle betweeen different word lists
 - [x] User can see the 'correctness' of their guess through colors on the word
 - [x] User sees a visual change after guessing the correct word
 - [ ] User can tap a 'Reset' button to get a new word and clear previous guesses
@@ -27,8 +27,9 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
+      
+![WordleGif](https://github.com/TNorsang/Wordle/assets/33474625/21887488-8826-4627-8fa3-042f24dc2824)
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## License
 
