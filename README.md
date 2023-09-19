@@ -4,7 +4,7 @@ Submitted by: **Norsang Nyandak**
 
 **Wordle** is an android app that recreates a simple version of the popular word game [Wordle](https://www.nytimes.com/games/wordle/index.html).
 
-Time spent: **10** hours spent in total
+Time spent: **12** hours spent in total
 
 ## Required Features
 
@@ -27,9 +27,8 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
-      
-![WordleGif](https://github.com/TNorsang/Wordle/assets/33474625/21887488-8826-4627-8fa3-042f24dc2824)
 
+![WordleGif](https://github.com/TNorsang/Wordle/assets/33474625/21887488-8826-4627-8fa3-042f24dc2824)
 
 ## License
 
